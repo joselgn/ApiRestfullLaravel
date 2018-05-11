@@ -11,6 +11,7 @@
 |
 */
 
+//ROTAS PARA O SISTEMA
 Route::get('/','IndexController@index');
 
 //Rotas previstas na documentaçao
@@ -32,3 +33,6 @@ Route::put('/veiculos/{id}','IndexController@editar')->where(['id' => '[0-9]+'])
 
 //Excluindo registro
 Route::delete('/veiculos/{id}','IndexController@excluir')->where(['id' => '[0-9]+']);
+
+
+//ROTAS PARA A API

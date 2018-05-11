@@ -6,6 +6,27 @@
 
 @section('conteudo') 
 <div class="flex-center position-ref full-height col-sm-12 col-md-12 col-lg-12">
+    @if(!empty($msg))  <!-- Verificando se exite a variavel mensagem (Flash Message)-->
+        <!--Definindo o tipo da Mesnagem-->
+        @if($tpMsg==1)
+            @php
+                $class  = 'alert-danger';
+                $ttlMsg = html_entity_decode('Atenç&atilde;o!');
+            @endphp                    
+        @else
+            @php
+                $class  = 'alert-success';
+                $ttlMsg = '';
+            @endphp                    
+        @endif       
+
+        <div class="alert {{ $class }} col-sm-12 col-md-12 col-lg-12">
+            <h3><b>{{ $ttlMsg }}</b></h3><br>
+            <!--{!! html_entity_decode(Session::get('mensagem')) !!}-->
+            {!! html_entity_decode($msg) !!}
+        </div>
+    @endif <!-- Verificando se exite a variavel mensagem (Flash Message) END -->
+    
     <div class="content col-sm-12 col-md-12 col-lg-12">
         <span class="col-sm-12 col-md-12 col-lg-12 text-center">
             <a href="/novo" class="btn btn-primary">Novo Registro</a>
@@ -55,8 +76,9 @@
                         <td>
                             <a class="btn btn-round btn-info" href="/veiculos/{{ $dados->id }}">Editar</a>
                             
-                            {!! Form::model($dados, ['method'=>'delete', 'url'=>'veiculos/'.$dados->id]) !!}
-                                <input type="submit" class="btn btn-round btn-danger " value="Excluir"/>
+                            {!! Form::model($dados, ['method'=>'post', 'url'=>'veiculos/'.$dados->id]) !!}
+                            {{ method_field('DELETE') }}
+                            {!! Form::submit('Excluir',['class'=>'btn btn-round btn-danger']) !!}
                             {!! Form::close() !!}
                         </td>                      
                     </tr>

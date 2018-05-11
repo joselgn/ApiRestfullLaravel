@@ -12,11 +12,11 @@ use App\Veiculo;
 class IndexController extends Controller
 {
     //Index
-     public function index(){
+     public function index($msg='',$tpMsg=0){
         $modelVeiculo = new Veiculo();
         $listaVeiculos = $modelVeiculo->all();
         
-        return view('lista',array('listaVeiculos'=>$listaVeiculos));
+        return view('lista',array('listaVeiculos'=>$listaVeiculos,'tpMsg'=>$tpMsg,'msg'=>$msg));
     }//index
     
     //Detalhe
@@ -130,10 +130,6 @@ class IndexController extends Controller
     
     //Excluindo dados
     public function excluir($id){
-        echo '<pre/>';
-        var_dump($id);
-        exit;
-        
         //variaveis de controle
         $msg='';
         $tpMsg=0;
@@ -142,10 +138,22 @@ class IndexController extends Controller
         $modelVeiculo = new Veiculo();
         $dadosVeiculo = $modelVeiculo->findOrFail(['id'=>$id])->first();
         
-        
-        
-        
-        
+        //Deletando registro
+        if($dadosVeiculo->count() > 0){
+            if($dadosVeiculo->delete()){
+                $tpMsg = 2;
+                $msg='Registro excluido com sucesso.';
+            }else{
+                $tpMsg = 1;
+                $msg='Erro ao excluir o registro.';
+            }//if / else delete gregistro
+        }else{
+            $tpMsg = 1;
+            $msg='Dados de registro nao encontrados para excluir.';
+        }//if / else count registro
+               
+        $listaVeiculos = $modelVeiculo->all();        
+        return view('lista',array('listaVeiculos'=>$listaVeiculos,'tpMsg'=>$tpMsg,'msg'=>$msg));
     }//Excluir um registro
     
     
