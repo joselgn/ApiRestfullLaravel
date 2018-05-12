@@ -78,7 +78,7 @@
                             
                             {!! Form::model($dados, ['method'=>'post', 'url'=>'veiculos/'.$dados->id]) !!}
                             {{ method_field('DELETE') }}
-                            {!! Form::submit('Excluir',['class'=>'btn btn-round btn-danger']) !!}
+                                    {!! Form::button('Excluir',['class'=>'btn btn-round btn-danger','onclick'=>'if(confirm("Tem certeza de que deseja EXCLUIR esse registro?"))submit();']) !!}
                             {!! Form::close() !!}
                         </td>                      
                     </tr>

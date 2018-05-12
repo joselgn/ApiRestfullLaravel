@@ -36,3 +36,16 @@ Route::delete('/veiculos/{id}','IndexController@excluir')->where(['id' => '[0-9]
 
 
 //ROTAS PARA A API
+Route::prefix('api')->group(function () {
+    //lista todos os registros0
+    Route::get('/','IndexController@apiindex');
+    
+    //Adicionar novo veiculo
+    Route::post('/veiculos','IndexController@apicadastrar');
+    
+    //Alterando registro
+    Route::put('/veiculos/{id}','IndexController@apieditar')->where(['id' => '[0-9]+']);
+
+    //Excluindo registro
+    Route::delete('/veiculos/{id}','IndexController@apiexcluir')->where(['id' => '[0-9]+']);
+});//Group API
