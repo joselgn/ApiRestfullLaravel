@@ -217,6 +217,16 @@ class IndexController extends Controller
         return $json;
     }//Novo  CADASTRO - Dados
     
+    //Lista detalhes de um registro especifico
+    public function apidetalhes($id,$tpMsg=0,$msg=''){
+        $modelVeiculo = new Veiculo();
+        $dadosVeiculo = $modelVeiculo->findOrFail(['id'=>$id])->first();
+      
+        $json = new JsonResponse(array('id'=>$id,'dadosVeiculo'=>$dadosVeiculo,'tpMsg'=>$tpMsg,'msg'=>$msg));
+        return $json;
+    }//detalhe API
+    
+    
     //Editando dados
     public function apieditar(Request $request){
         //variaveis de controle
