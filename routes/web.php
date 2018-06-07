@@ -11,12 +11,16 @@
 |
 */
 
-//ROTAS PARA O SISTEMA
+/****************************************************************
+ ******************** SISTEMA/API VEICULOS **********************
+ ****************************************************************/
+
+//ROTAS PARA O SISTEMA 
 Route::get('/','IndexController@index');
 
 //Rotas previstas na documentaçao
 //Lista de Veiculos - Todos
-Route::get('/veiculos','IndexController@index');///veiculos
+Route::get('/veiculos','IndexController@lista');///veiculos lista
 
 //Novo Veiculo - Tela
 Route::get('/novo', 'IndexController@novo');///veiculo - Novo Registro
@@ -50,4 +54,29 @@ Route::prefix('api')->group(function () {
 
     //Excluindo registro
     Route::delete('/veiculos/{id}','IndexController@apiexcluir')->where(['id' => '[0-9]+']);
+});//Group API
+
+
+
+/****************************************************************
+ ******************** SISTEMA/API USERS *************************
+ ****************************************************************/
+Route::prefix('users')->group(function () {
+    //Manual English version
+    Route::get('/','UserController@index');
+
+    //List all registered users 
+    Route::get('/list','UserController@lista');
+    
+    //Form User
+    Route::get('/user/{id?}','UserController@userform');
+    
+    //Add new User
+    Route::post('/new','UserController@addnew');//Saving
+                
+    //Alterando registro
+    Route::put('/user/{id}','UserController@update')->where(['id' => '[0-9]+']);//Editing
+
+    //Excluindo registro
+    Route::delete('/user/{id}','UserController@delete')->where(['id' => '[0-9]+']);//Deleting
 });//Group API

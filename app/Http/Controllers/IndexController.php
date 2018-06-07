@@ -13,7 +13,12 @@ use App\Veiculo;
 class IndexController extends Controller
 {
     //Index
-     public function index($msg='',$tpMsg=0){
+     public function index(){           
+        return view('manual');
+    }//index
+
+    //Lista
+    public function lista($msg='',$tpMsg=0){
         $modelVeiculo = new Veiculo();
         $listaVeiculos = $modelVeiculo->all();
         
